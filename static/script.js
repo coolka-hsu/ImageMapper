@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check file size (10MB limit)
             const maxSize = 10 * 1024 * 1024; // 10MB in bytes
             if (file.size > maxSize) {
-                alert('File size must be less than 10MB');
+                alert('檔案大小必須小於 10MB');
                 this.value = '';
                 return;
             }
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check file type
             const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'];
             if (!allowedTypes.includes(file.type)) {
-                alert('Please upload a PNG, JPG, JPEG, or GIF file');
+                alert('請上傳 PNG、JPG、JPEG 或 GIF 檔案');
                 this.value = '';
                 return;
             }
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fileInfo.className = 'alert alert-info mt-2';
             fileInfo.innerHTML = `
                 <i class="fas fa-info-circle me-2"></i>
-                <strong>Selected:</strong> ${file.name} (${formatFileSize(file.size)})
+                <strong>已選擇：</strong> ${file.name} (${formatFileSize(file.size)})
             `;
             
             // Remove any existing file info
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 info.className = 'alert alert-success mt-2';
                 info.innerHTML = `
                     <i class="fas fa-check-circle me-2"></i>
-                    Found ${count} area tag${count > 1 ? 's' : ''}
+                    找到 ${count} 個區域標籤
                 `;
                 
                 // Remove any existing info
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 warning.className = 'alert alert-warning mt-2';
                 warning.innerHTML = `
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    No valid area tags found. Please check your HTML.
+                    找不到有效的區域標籤，請檢查您的 HTML。
                 `;
                 
                 // Remove any existing info
@@ -94,13 +94,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!imageFile) {
             e.preventDefault();
-            alert('Please select an image file');
+            alert('請選擇圖片檔案');
             return;
         }
 
         if (!mapContent) {
             e.preventDefault();
-            alert('Please provide HTML map code');
+            alert('請提供 HTML 地圖代碼');
             return;
         }
 
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Disable submit button
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>處理中...';
     });
 
     // Auto-format map HTML
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formatBtn = document.createElement('button');
     formatBtn.type = 'button';
     formatBtn.className = 'btn btn-sm btn-outline-secondary mt-2';
-    formatBtn.innerHTML = '<i class="fas fa-code me-1"></i>Format';
+    formatBtn.innerHTML = '<i class="fas fa-code me-1"></i>格式化';
     formatBtn.addEventListener('click', formatMapHTML);
     
     mapTextarea.parentNode.appendChild(formatBtn);
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const insertBtn = document.createElement('button');
                     insertBtn.type = 'button';
                     insertBtn.className = 'btn btn-success btn-sm mt-2';
-                    insertBtn.innerHTML = '<i class="fas fa-plus me-1"></i>Use This Example';
+                    insertBtn.innerHTML = '<i class="fas fa-plus me-1"></i>使用此範例';
                     insertBtn.addEventListener('click', function() {
                         const exampleCode = `<map name="example">
   <area shape="rect" coords="0,0,300,150" href="https://example.com/link1" alt="Section 1">
@@ -206,7 +206,7 @@ function copyHtmlCode() {
             }, 2000);
             
         } catch (err) {
-            console.error('Failed to copy text: ', err);
+            console.error('複製文字失敗: ', err);
             alert('複製失敗，請手動選取並複製文字');
         }
     }

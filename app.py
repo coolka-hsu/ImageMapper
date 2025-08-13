@@ -55,22 +55,22 @@ def process_image():
         
         # Check if file was uploaded
         if 'image' not in request.files:
-            flash('No image file provided', 'error')
+            flash('未提供圖片檔案', 'error')
             return redirect(url_for('index'))
         
         file = request.files['image']
         map_html = request.form.get('map_html', '').strip()
         
         if file.filename == '':
-            flash('No image file selected', 'error')
+            flash('未選擇圖片檔案', 'error')
             return redirect(url_for('index'))
         
         if not map_html:
-            flash('No HTML map provided', 'error')
+            flash('未提供 HTML 地圖代碼', 'error')
             return redirect(url_for('index'))
         
         if not allowed_file(file.filename):
-            flash('Invalid file type. Please upload PNG, JPG, JPEG, or GIF files.', 'error')
+            flash('檔案格式不正確，請上傳 PNG、JPG、JPEG 或 GIF 檔案。', 'error')
             return redirect(url_for('index'))
         
         # Create session directories
@@ -88,7 +88,7 @@ def process_image():
         areas = parse_html_map(map_html)
         if not areas:
             cleanup_session_files(session_id)
-            flash('No valid area tags found in HTML map', 'error')
+            flash('在 HTML 地圖中找不到有效的區域標籤', 'error')
             return redirect(url_for('index'))
         
         # Slice image and upload to Cloudinary
@@ -104,14 +104,14 @@ def process_image():
                 sliced_images.append({
                     'url': cloudinary_url,
                     'href': area['href'],
-                    'alt': area.get('alt', f'Image slice {i+1}'),
+                    'alt': area.get('alt', f'圖片切片 {i+1}'),
                     'title': area.get('title', '')
                 })
                 
             except Exception as e:
                 logging.error(f"Error processing slice {i}: {e}")
                 cleanup_session_files(session_id)
-                flash(f'Error processing image slice {i+1}: {str(e)}', 'error')
+                flash(f'處理圖片切片 {i+1} 時發生錯誤：{str(e)}', 'error')
                 return redirect(url_for('index'))
         
         # Generate HTML
@@ -146,7 +146,7 @@ def process_image():
                 cleanup_session_files(session_id)
         except:
             pass
-        flash(f'An error occurred: {str(e)}', 'error')
+        flash(f'發生錯誤：{str(e)}', 'error')
         return redirect(url_for('index'))
 
 @app.route('/download/<filename>')
@@ -156,11 +156,11 @@ def download_zip(filename):
         if os.path.exists(file_path):
             return send_file(file_path, as_attachment=True, download_name=filename)
         else:
-            flash('File not found', 'error')
+            flash('檔案不存在', 'error')
             return redirect(url_for('index'))
     except Exception as e:
         logging.error(f"Error downloading file: {e}")
-        flash('Error downloading file', 'error')
+        flash('下載檔案時發生錯誤', 'error')
         return redirect(url_for('index'))
 
 def generate_responsive_html(sliced_images):

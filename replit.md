@@ -7,6 +7,7 @@ This is a Flask web application that automatically slices images based on HTML m
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+UI Language: 繁體中文 - All user-facing text has been localized to Traditional Chinese including interface labels, error messages, notifications, and form elements.
 
 ## System Architecture
 
@@ -15,6 +16,7 @@ Preferred communication style: Simple, everyday language.
 - **Client-Side Validation**: JavaScript validation for file uploads (size limits, file types)
 - **UI Framework**: Bootstrap 5 with Font Awesome icons for modern, responsive design
 - **File Upload Interface**: HTML form with drag-and-drop support for image uploads and textarea for HTML map input
+- **Localization**: Full Traditional Chinese localization for all user-facing elements including forms, buttons, messages, and instructions
 
 ### Backend Architecture
 - **Web Framework**: Flask with modular utility functions for core processing

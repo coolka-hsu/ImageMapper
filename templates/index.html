@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="zh-TW" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Map Image Slicer</title>
+    <title>電子報地圖圖片切割工具</title>
     <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -14,10 +14,10 @@
             <div class="col-12 text-center">
                 <h1 class="display-4 mb-3">
                     <i class="fas fa-cut me-3"></i>
-                    Email Map Image Slicer
+                    電子報地圖圖片切割工具
                 </h1>
                 <p class="lead text-muted">
-                    Automatically slice images based on HTML map coordinates and generate responsive email templates
+                    根據 HTML 地圖座標自動切割圖片，並產生響應式電子報模板
                 </p>
             </div>
         </div>
@@ -46,22 +46,22 @@
                 <div class="alert alert-success" role="alert">
                     <h4 class="alert-heading">
                         <i class="fas fa-check-circle me-2"></i>
-                        Processing Complete!
+                        處理完成！
                     </h4>
-                    <p class="mb-3">Successfully processed {{ sliced_count }} image slices and generated responsive HTML template.</p>
+                    <p class="mb-3">成功處理了 {{ sliced_count }} 個圖片切片並產生響應式 HTML 模板。</p>
                     <hr>
                     <div class="d-flex gap-3 flex-wrap">
                         <a href="{{ download_url }}" class="btn btn-success">
                             <i class="fas fa-download me-2"></i>
-                            Download ZIP Package
+                            下載 ZIP 檔案
                         </a>
                         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#previewModal">
                             <i class="fas fa-eye me-2"></i>
-                            Preview HTML
+                            預覽 HTML
                         </button>
                         <button type="button" class="btn btn-outline-info" data-bs-toggle="collapse" data-bs-target="#htmlCodeSection">
                             <i class="fas fa-code me-2"></i>
-                            Show HTML Code
+                            顯示 HTML 代碼
                         </button>
                     </div>
                 </div>
@@ -76,11 +76,11 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">
                                 <i class="fas fa-code me-2"></i>
-                                HTML Code - Ready to Copy
+                                HTML 代碼 - 可複製使用
                             </h5>
                             <button type="button" class="btn btn-sm btn-outline-success" onclick="copyHtmlCode()">
                                 <i class="fas fa-copy me-1"></i>
-                                Copy All
+                                複製全部
                             </button>
                         </div>
                         <div class="card-body">
@@ -114,7 +114,7 @@
                     <div class="card-header">
                         <h3 class="card-title mb-0">
                             <i class="fas fa-upload me-2"></i>
-                            Upload & Process
+                            上傳與處理
                         </h3>
                     </div>
                     <div class="card-body">
@@ -123,12 +123,12 @@
                             <div class="mb-4">
                                 <label for="image" class="form-label">
                                     <i class="fas fa-image me-2"></i>
-                                    Upload Image
+                                    上傳圖片
                                 </label>
                                 <input type="file" class="form-control" id="image" name="image" 
                                        accept="image/png,image/jpg,image/jpeg,image/gif" required>
                                 <div class="form-text">
-                                    Supported formats: PNG, JPG, JPEG, GIF. Maximum size: 10MB
+                                    支援格式：PNG、JPG、JPEG、GIF。檔案大小上限：10MB
                                 </div>
                             </div>
 
@@ -136,12 +136,12 @@
                             <div class="mb-4">
                                 <label for="map_html" class="form-label">
                                     <i class="fas fa-code me-2"></i>
-                                    HTML Map Code
+                                    HTML 地圖代碼
                                 </label>
                                 <textarea class="form-control" id="map_html" name="map_html" rows="8" 
-                                          placeholder="Paste your HTML map code here..." required></textarea>
+                                          placeholder="請在此貼上您的 HTML 地圖代碼..." required></textarea>
                                 <div class="form-text">
-                                    Paste the complete &lt;map&gt; element with &lt;area&gt; tags, or just the &lt;area&gt; tags.
+                                    請貼上完整的 &lt;map&gt; 元素包含 &lt;area&gt; 標籤，或僅貼上 &lt;area&gt; 標籤。
                                 </div>
                             </div>
 
@@ -150,7 +150,7 @@
                                 <button type="button" class="btn btn-sm btn-outline-secondary" 
                                         data-bs-toggle="collapse" data-bs-target="#exampleCode">
                                     <i class="fas fa-lightbulb me-2"></i>
-                                    Show Example
+                                    顯示範例
                                 </button>
                                 <div class="collapse mt-3" id="exampleCode">
                                     <div class="card card-body bg-dark">
@@ -167,7 +167,7 @@
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
                                     <i class="fas fa-magic me-2"></i>
-                                    Process & Generate HTML
+                                    處理並產生 HTML
                                 </button>
                             </div>
                         </form>
@@ -183,29 +183,29 @@
                     <div class="card-header">
                         <h4 class="card-title mb-0">
                             <i class="fas fa-info-circle me-2"></i>
-                            How It Works
+                            如何使用
                         </h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><i class="fas fa-step-forward me-2 text-primary"></i>Process</h5>
+                                <h5><i class="fas fa-step-forward me-2 text-primary"></i>處理流程</h5>
                                 <ol class="list-unstyled">
-                                    <li class="mb-2"><i class="fas fa-upload me-2 text-success"></i>Upload your long image</li>
-                                    <li class="mb-2"><i class="fas fa-code me-2 text-info"></i>Paste HTML map coordinates</li>
-                                    <li class="mb-2"><i class="fas fa-cut me-2 text-warning"></i>System slices image automatically</li>
-                                    <li class="mb-2"><i class="fas fa-cloud-upload-alt me-2 text-primary"></i>Images uploaded to Cloudinary</li>
-                                    <li class="mb-2"><i class="fas fa-file-code me-2 text-success"></i>Responsive HTML generated</li>
+                                    <li class="mb-2"><i class="fas fa-upload me-2 text-success"></i>上傳您的長圖</li>
+                                    <li class="mb-2"><i class="fas fa-code me-2 text-info"></i>貼上 HTML 地圖座標</li>
+                                    <li class="mb-2"><i class="fas fa-cut me-2 text-warning"></i>系統自動切割圖片</li>
+                                    <li class="mb-2"><i class="fas fa-cloud-upload-alt me-2 text-primary"></i>圖片上傳至雲端</li>
+                                    <li class="mb-2"><i class="fas fa-file-code me-2 text-success"></i>產生響應式 HTML</li>
                                 </ol>
                             </div>
                             <div class="col-md-6">
-                                <h5><i class="fas fa-download me-2 text-primary"></i>Output</h5>
+                                <h5><i class="fas fa-download me-2 text-primary"></i>輸出結果</h5>
                                 <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="fas fa-file-archive me-2 text-warning"></i>ZIP package with HTML file</li>
-                                    <li class="mb-2"><i class="fas fa-mobile-alt me-2 text-info"></i>Responsive email-friendly HTML</li>
-                                    <li class="mb-2"><i class="fas fa-link me-2 text-success"></i>All links properly mapped</li>
-                                    <li class="mb-2"><i class="fas fa-cloud me-2 text-primary"></i>Images hosted on Cloudinary</li>
-                                    <li class="mb-2"><i class="fas fa-envelope me-2 text-secondary"></i>Ready for email campaigns</li>
+                                    <li class="mb-2"><i class="fas fa-file-archive me-2 text-warning"></i>包含 HTML 檔案的 ZIP 檔案</li>
+                                    <li class="mb-2"><i class="fas fa-mobile-alt me-2 text-info"></i>響應式電子報友善 HTML</li>
+                                    <li class="mb-2"><i class="fas fa-link me-2 text-success"></i>所有連結正確對應</li>
+                                    <li class="mb-2"><i class="fas fa-cloud me-2 text-primary"></i>圖片託管於雲端</li>
+                                    <li class="mb-2"><i class="fas fa-envelope me-2 text-secondary"></i>可直接用於電子報行銷</li>
                                 </ul>
                             </div>
                         </div>
@@ -223,29 +223,29 @@
                 <div class="modal-header">
                     <h5 class="modal-title">
                         <i class="fas fa-eye me-2"></i>
-                        HTML Preview
+                        HTML 預覽
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h6>Visual Preview:</h6>
+                            <h6>視覺預覽：</h6>
                             <div class="border p-3 bg-white" style="max-height: 500px; overflow-y: auto;">
                                 {{ preview_html|safe }}
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h6>HTML Code:</h6>
+                            <h6>HTML 代碼：</h6>
                             <textarea class="form-control" readonly style="height: 500px; font-family: monospace; font-size: 12px;">{{ preview_html }}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
                     <a href="{{ download_url }}" class="btn btn-success">
                         <i class="fas fa-download me-2"></i>
-                        Download ZIP
+                        下載 ZIP
                     </a>
                 </div>
             </div>
@@ -259,10 +259,10 @@
             <div class="modal-content">
                 <div class="modal-body text-center py-5">
                     <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="visually-hidden">處理中...</span>
                     </div>
-                    <h5>Processing Your Image...</h5>
-                    <p class="text-muted mb-0">This may take a few moments</p>
+                    <h5>正在處理您的圖片...</h5>
+                    <p class="text-muted mb-0">請稍候片刻</p>
                 </div>
             </div>
         </div>
