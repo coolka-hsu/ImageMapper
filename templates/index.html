@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Map Image Slicer</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5">
+        <!-- Header -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 mb-3">
+                    <i class="fas fa-cut me-3"></i>
+                    Email Map Image Slicer
+                </h1>
+                <p class="lead text-muted">
+                    Automatically slice images based on HTML map coordinates and generate responsive email templates
+                </p>
+            </div>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="row mb-4">
+                    <div class="col-12">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Success Message with Download -->
+        {% if success %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Processing Complete!
+                    </h4>
+                    <p class="mb-3">Successfully processed {{ sliced_count }} image slices and generated responsive HTML template.</p>
+                    <hr>
+                    <div class="d-flex gap-3">
+                        <a href="{{ download_url }}" class="btn btn-success">
+                            <i class="fas fa-download me-2"></i>
+                            Download ZIP Package
+                        </a>
+                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#previewModal">
+                            <i class="fas fa-eye me-2"></i>
+                            Preview HTML
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Main Form -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-upload me-2"></i>
+                            Upload & Process
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/process" enctype="multipart/form-data" id="uploadForm">
+                            <!-- Image Upload -->
+                            <div class="mb-4">
+                                <label for="image" class="form-label">
+                                    <i class="fas fa-image me-2"></i>
+                                    Upload Image
+                                </label>
+                                <input type="file" class="form-control" id="image" name="image" 
+                                       accept="image/png,image/jpg,image/jpeg,image/gif" required>
+                                <div class="form-text">
+                                    Supported formats: PNG, JPG, JPEG, GIF. Maximum size: 10MB
+                                </div>
+                            </div>
+
+                            <!-- HTML Map Input -->
+                            <div class="mb-4">
+                                <label for="map_html" class="form-label">
+                                    <i class="fas fa-code me-2"></i>
+                                    HTML Map Code
+                                </label>
+                                <textarea class="form-control" id="map_html" name="map_html" rows="8" 
+                                          placeholder="Paste your HTML map code here..." required></textarea>
+                                <div class="form-text">
+                                    Paste the complete &lt;map&gt; element with &lt;area&gt; tags, or just the &lt;area&gt; tags.
+                                </div>
+                            </div>
+
+                            <!-- Example -->
+                            <div class="mb-4">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" 
+                                        data-bs-toggle="collapse" data-bs-target="#exampleCode">
+                                    <i class="fas fa-lightbulb me-2"></i>
+                                    Show Example
+                                </button>
+                                <div class="collapse mt-3" id="exampleCode">
+                                    <div class="card card-body bg-dark">
+                                        <pre class="mb-0"><code>&lt;map name="example"&gt;
+  &lt;area shape="rect" coords="0,0,300,150" href="https://example.com/link1" alt="Section 1"&gt;
+  &lt;area shape="rect" coords="0,150,300,300" href="https://example.com/link2" alt="Section 2"&gt;
+  &lt;area shape="rect" coords="0,300,300,450" href="https://example.com/link3" alt="Section 3"&gt;
+&lt;/map&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                    <i class="fas fa-magic me-2"></i>
+                                    Process & Generate HTML
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            How It Works
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-step-forward me-2 text-primary"></i>Process</h5>
+                                <ol class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-upload me-2 text-success"></i>Upload your long image</li>
+                                    <li class="mb-2"><i class="fas fa-code me-2 text-info"></i>Paste HTML map coordinates</li>
+                                    <li class="mb-2"><i class="fas fa-cut me-2 text-warning"></i>System slices image automatically</li>
+                                    <li class="mb-2"><i class="fas fa-cloud-upload-alt me-2 text-primary"></i>Images uploaded to Cloudinary</li>
+                                    <li class="mb-2"><i class="fas fa-file-code me-2 text-success"></i>Responsive HTML generated</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-download me-2 text-primary"></i>Output</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-file-archive me-2 text-warning"></i>ZIP package with HTML file</li>
+                                    <li class="mb-2"><i class="fas fa-mobile-alt me-2 text-info"></i>Responsive email-friendly HTML</li>
+                                    <li class="mb-2"><i class="fas fa-link me-2 text-success"></i>All links properly mapped</li>
+                                    <li class="mb-2"><i class="fas fa-cloud me-2 text-primary"></i>Images hosted on Cloudinary</li>
+                                    <li class="mb-2"><i class="fas fa-envelope me-2 text-secondary"></i>Ready for email campaigns</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if success and preview_html %}
+    <!-- Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-eye me-2"></i>
+                        HTML Preview
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h6>Visual Preview:</h6>
+                            <div class="border p-3 bg-white" style="max-height: 500px; overflow-y: auto;">
+                                {{ preview_html|safe }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h6>HTML Code:</h6>
+                            <textarea class="form-control" readonly style="height: 500px; font-family: monospace; font-size: 12px;">{{ preview_html }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ download_url }}" class="btn btn-success">
+                        <i class="fas fa-download me-2"></i>
+                        Download ZIP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-5">
+                    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <h5>Processing Your Image...</h5>
+                    <p class="text-muted mb-0">This may take a few moments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
