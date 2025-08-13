@@ -20,10 +20,6 @@ author = "agent"
 task = "workflow.run"
 args = "Start application"
 
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "flask_run"
-
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -32,14 +28,6 @@ author = "agent"
 task = "shell.exec"
 args = "gunicorn --bind 0.0.0.0:5000 --reuse-port --reload main:app"
 waitForPort = 5000
-
-[[workflows.workflow]]
-name = "flask_run"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "uv add pillow beautifulsoup4 cloudinary"
 
 [[ports]]
 localPort = 5000
