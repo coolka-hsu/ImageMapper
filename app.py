@@ -164,30 +164,51 @@ def download_zip(filename):
         return redirect(url_for('index'))
 
 def generate_responsive_html(sliced_images):
-    """Generate responsive HTML with sliced images"""
+    """Generate fully responsive HTML with sliced images for all devices"""
     html_parts = []
     
     html_parts.append('''<!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Responsive Email Template</title>
     <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
+        
+        /* Email container - responsive design */
         .email-container {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
             background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
+        /* Image sections - fully responsive */
         .image-section {
             display: block;
             width: 100%;
+            text-decoration: none;
+            border: none;
+            outline: none;
         }
+        
         .image-section img {
             width: 100%;
             height: auto;
@@ -195,10 +216,66 @@ def generate_responsive_html(sliced_images):
             border: 0;
             outline: none;
             text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100%;
         }
-        @media only screen and (max-width: 600px) {
+        
+        /* Mobile-first responsive breakpoints */
+        @media only screen and (max-width: 599px) {
             .email-container {
                 width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .image-section img {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+        
+        /* Tablet breakpoint */
+        @media only screen and (min-width: 600px) and (max-width: 768px) {
+            .email-container {
+                width: 95% !important;
+                max-width: 600px !important;
+            }
+        }
+        
+        /* Desktop breakpoint */
+        @media only screen and (min-width: 769px) {
+            .email-container {
+                width: 600px !important;
+                max-width: 600px !important;
+            }
+        }
+        
+        /* High DPI displays */
+        @media only screen and (-webkit-min-device-pixel-ratio: 2),
+               only screen and (min-resolution: 192dpi) {
+            .image-section img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: optimize-contrast;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+            }
+            .email-container {
+                background-color: #2d2d2d;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .email-container {
+                width: 100% !important;
+                max-width: none !important;
+                box-shadow: none !important;
             }
         }
     </style>
@@ -206,10 +283,16 @@ def generate_responsive_html(sliced_images):
 <body>
     <div class="email-container">''')
     
-    for image in sliced_images:
+    for i, image in enumerate(sliced_images):
+        # Add loading="lazy" for better performance on modern browsers
+        loading_attr = 'loading="lazy"' if i > 0 else ''
         html_parts.append(f'''
-        <a href="{image['href']}" class="image-section" target="_blank">
-            <img src="{image['url']}" alt="{image['alt']}" title="{image['title']}">
+        <a href="{image['href']}" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="{image['url']}" 
+                 alt="{image['alt']}" 
+                 title="{image['title']}"
+                 {loading_attr}
+                 style="width: 100%; height: auto; display: block; border: 0;">
         </a>''')
     
     html_parts.append('''

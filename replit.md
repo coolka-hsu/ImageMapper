@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a Flask web application that automatically slices images based on HTML map coordinates and generates responsive email templates. The application takes an image file and HTML map data containing area coordinates, then slices the image into individual pieces based on those coordinates. Each slice is uploaded to Cloudinary for hosting, and the application generates email-ready HTML templates with the sliced images.
+This is a Flask web application that automatically slices images based on HTML map coordinates and generates fully responsive email templates. The application takes an image file and HTML map data containing area coordinates, then slices the image into individual pieces based on those coordinates. Each slice is uploaded to cloud storage (with local backup), and the application generates mobile-first responsive HTML templates optimized for all devices and email clients.
 
 ## User Preferences
 
@@ -38,9 +38,17 @@ Preferred communication style: Simple, everyday language.
 1. Image upload with validation (file type, size limits)
 2. HTML map parsing to extract rectangular coordinates
 3. Image slicing using PIL based on extracted coordinates
-4. Individual slice upload to Cloudinary
-5. HTML template generation with Cloudinary URLs
-6. Downloadable ZIP package creation
+4. Individual slice upload to local storage (with Cloudinary fallback)
+5. Responsive HTML template generation with mobile-first design
+6. Direct HTML code display with copy functionality
+7. Downloadable ZIP package creation
+
+### Responsive Design Features
+- **Multi-breakpoint Support**: Mobile (<600px), Tablet (600-768px), Desktop (>768px)
+- **Email Client Compatibility**: Gmail, Outlook, Apple Mail, Yahoo Mail
+- **High DPI Display Support**: Retina and high-resolution screen optimization
+- **Dark Mode Support**: Automatic adaptation to system dark theme
+- **Performance Optimization**: Lazy loading for images beyond first fold
 
 ## External Dependencies
 
