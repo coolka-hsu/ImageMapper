@@ -180,3 +180,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 });
+
+// Function to copy HTML code to clipboard
+function copyHtmlCode() {
+    const textarea = document.getElementById('htmlCodeTextarea');
+    if (textarea) {
+        textarea.select();
+        textarea.setSelectionRange(0, 99999); // For mobile devices
+        
+        try {
+            document.execCommand('copy');
+            
+            // Show success feedback
+            const copyBtn = document.querySelector('[onclick="copyHtmlCode()"]');
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check me-1"></i>已複製！';
+            copyBtn.classList.remove('btn-outline-success');
+            copyBtn.classList.add('btn-success');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('btn-success');
+                copyBtn.classList.add('btn-outline-success');
+            }, 2000);
+            
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            alert('複製失敗，請手動選取並複製文字');
+        }
+    }
+}
+
+// Auto-expand HTML code section after successful processing
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we have success state and auto-show HTML code
+    const htmlCodeSection = document.getElementById('htmlCodeSection');
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (htmlCodeSection && document.querySelector('.alert-success')) {
+        // Auto-expand the HTML code section for convenience
+        setTimeout(() => {
+            const collapse = new bootstrap.Collapse(htmlCodeSection, {
+                show: true
+            });
+        }, 500);
+    }
+});
