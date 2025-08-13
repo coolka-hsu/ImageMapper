@@ -42,7 +42,7 @@ def upload_to_cloudinary(image_path, public_id=None):
         
         if public_id:
             upload_options['public_id'] = public_id
-            upload_options['overwrite'] = True
+            upload_options['overwrite'] = 'true'
         
         # Upload the image
         result = cloudinary.uploader.upload(image_path, **upload_options)

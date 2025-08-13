@@ -80,7 +80,7 @@ def process_image():
         os.makedirs(session_slices_dir, exist_ok=True)
         
         # Save uploaded file
-        filename = secure_filename(file.filename)
+        filename = secure_filename(file.filename or 'uploaded_image')
         file_path = os.path.join(session_upload_dir, filename)
         file.save(file_path)
         
@@ -141,8 +141,11 @@ def process_image():
         
     except Exception as e:
         logging.error(f"Error in process_image: {e}")
-        if 'session_id' in locals():
-            cleanup_session_files(session_id)
+        try:
+            if 'session_id' in locals():
+                cleanup_session_files(session_id)
+        except:
+            pass
         flash(f'An error occurred: {str(e)}', 'error')
         return redirect(url_for('index'))
 

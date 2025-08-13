@@ -31,7 +31,7 @@ def parse_html_map(html_content):
         for area in areas:
             try:
                 # Extract coordinates
-                coords_str = area.get('coords', '')
+                coords_str = str(area.get('coords', ''))
                 if not coords_str:
                     logging.warning("Area tag missing coords attribute")
                     continue
@@ -44,10 +44,10 @@ def parse_html_map(html_content):
                     continue
                 
                 # Extract other attributes
-                href = area.get('href', '#')
-                alt = area.get('alt', '')
-                title = area.get('title', '')
-                shape = area.get('shape', 'rect')
+                href = str(area.get('href', '#'))
+                alt = str(area.get('alt', ''))
+                title = str(area.get('title', ''))
+                shape = str(area.get('shape', 'rect'))
                 
                 # Only support rect shape for now
                 if shape.lower() != 'rect':
