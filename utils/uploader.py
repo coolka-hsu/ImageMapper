@@ -25,24 +25,27 @@ def upload_to_cloudinary(image_path, public_id=None):
     """
     try:
         # Check if Cloudinary is configured
-        if not all([
-            os.environ.get("CLOUDINARY_CLOUD_NAME"),
-            os.environ.get("CLOUDINARY_API_KEY"),
-            os.environ.get("CLOUDINARY_API_SECRET")
-        ]):
+        cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME")
+        api_key = os.environ.get("CLOUDINARY_API_KEY") 
+        api_secret = os.environ.get("CLOUDINARY_API_SECRET")
+        
+        if not all([cloud_name, api_key, api_secret]):
             raise Exception("Cloudinary credentials not properly configured. Please set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET environment variables.")
         
-        # Upload options
-        upload_options = {
-            'resource_type': 'image',
-            'format': 'auto',
-            'quality': 'auto:good',
-            'fetch_format': 'auto'
-        }
+        # Reconfigure cloudinary with fresh credentials
+        cloudinary.config(
+            cloud_name=cloud_name,
+            api_key=api_key,
+            api_secret=api_secret,
+            secure=True
+        )
+        
+        # Simple upload options
+        upload_options = {}
         
         if public_id:
             upload_options['public_id'] = public_id
-            upload_options['overwrite'] = 'true'
+            upload_options['overwrite'] = True
         
         # Upload the image
         result = cloudinary.uploader.upload(image_path, **upload_options)
