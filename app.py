@@ -17,6 +17,34 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
+# app.py (擺在現有程式架構內)
+import os, logging
+from flask import Flask, jsonify
+from PIL import Image
+
+app = Flask(__name__, static_folder="static", static_url_path="/static")
+
+# 啟動時提示是否走 Cloudinary
+if os.getenv("CLOUDINARY_URL"):
+    logging.warning("Cloudinary enabled (CLOUDINARY_URL present)")
+else:
+    logging.warning("CLOUDINARY_URL missing, will fallback to local storage")
+
+# 健康檢查：實際做一張 16x16 小圖，測試上傳流程
+@app.get("/debug/cloudinary")
+def debug_cloudinary():
+    from utils.uploader import save_image
+    tmp_path = "/tmp/diag.png"
+    img = Image.new("RGB", (16, 16), (123, 200, 50))
+    img.save(tmp_path, "PNG")
+    url = save_image(tmp_path, public_id_prefix="diag")
+    return jsonify({
+        "has_cloudinary_url": bool(os.getenv("CLOUDINARY_URL")),
+        "upload_dest": os.getenv("UPLOAD_DEST", "auto"),
+        "result_url": url
+    })
+
+
 # Configuration
 UPLOAD_FOLDER = 'uploads'
 SLICES_FOLDER = 'slices'
