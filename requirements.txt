@@ -1,3 +1,4 @@
+# 1) 最小可跑的相依
 cat > requirements.txt <<'EOF'
 Flask
 gunicorn
@@ -8,6 +9,11 @@ Pillow
 python-dotenv
 EOF
 
-git add requirements.txt
-git commit -m "chore: add bs4 and deps for Railway"
+# 2) 確保 utils 是套件（避免 "No module named 'utils'"）
+mkdir -p utils
+touch utils/__init__.py
+
+# 3) 送上 GitHub 觸發重新部署
+git add requirements.txt utils/__init__.py
+git commit -m "fix: deps + make utils a package"
 git push
