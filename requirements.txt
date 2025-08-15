@@ -1,2 +1,13 @@
+cat > requirements.txt <<'EOF'
 Flask
 gunicorn
+beautifulsoup4
+lxml
+requests
+Pillow
+python-dotenv
+EOF
+
+git add requirements.txt
+git commit -m "chore: add bs4 and deps for Railway"
+git push
