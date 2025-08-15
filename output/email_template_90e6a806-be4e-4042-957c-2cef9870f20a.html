@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Responsive Email Template</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        /* Email container - responsive design */
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Image sections - fully responsive */
+        .image-section {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            border: none;
+            outline: none;
+        }
+        
+        .image-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 0;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100%;
+        }
+        
+        /* Mobile-first responsive breakpoints */
+        @media only screen and (max-width: 599px) {
+            .email-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .image-section img {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+        
+        /* Tablet breakpoint */
+        @media only screen and (min-width: 600px) and (max-width: 768px) {
+            .email-container {
+                width: 95% !important;
+                max-width: 600px !important;
+            }
+        }
+        
+        /* Desktop breakpoint */
+        @media only screen and (min-width: 769px) {
+            .email-container {
+                width: 600px !important;
+                max-width: 600px !important;
+            }
+        }
+        
+        /* High DPI displays */
+        @media only screen and (-webkit-min-device-pixel-ratio: 2),
+               only screen and (min-resolution: 192dpi) {
+            .image-section img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: optimize-contrast;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+            }
+            .email-container {
+                background-color: #2d2d2d;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .email-container {
+                width: 100% !important;
+                max-width: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+
+        <a href="https://www.senteurdoc.com.tw/collections/歐巴拉朵系列任4件以上75折?utm_source=edm&utm_medium=20250815&utm_campaign=20250815%28RP%29" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_0.png" 
+                 alt="" 
+                 title=""
+                 
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+        <a href="https://www.senteurdoc.com.tw/collections/限時限量閃購優惠?utm_source=edm&utm_medium=20250815&utm_campaign=20250815%28%E6%B4%97%E7%A2%97%E7%B2%BE%29" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_1.png" 
+                 alt="" 
+                 title=""
+                 loading="lazy"
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+        <a href="https://www.senteurdoc.com.tw/collections/香皂館任4顆75折8顆7折15顆65折?utm_source=edm&utm_medium=20250815&utm_campaign=20250815%28%E9%A6%99%E7%9A%82%29" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_2.png" 
+                 alt="" 
+                 title=""
+                 loading="lazy"
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+        <a href="https://www.senteurdoc.com.tw/collections/香皂節優惠組?utm_source=edm&utm_medium=20250815&utm_campaign=20250815%28%E5%84%AA%E6%83%A0%E7%B5%84%29" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_3.png" 
+                 alt="" 
+                 title=""
+                 loading="lazy"
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+        <a href="https://www.senteurdoc.com.tw/collections/質感好物-任2件8折3件以上7折?utm_source=edm&utm_medium=20250815&utm_campaign=20250815%28LD%29" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_4.png" 
+                 alt="" 
+                 title=""
+                 loading="lazy"
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+        <a href="https://www.senteurdoc.com.tw/collections/香皂節優惠組?utm_source=edm&utm_medium=20250815&utm_campaign=20250815%28%E5%84%AA%E6%83%A0%E7%B5%84%29" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_5.png" 
+                 alt="" 
+                 title=""
+                 loading="lazy"
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+        <a href="https://linktr.ee/senteurdoc" class="image-section" target="_blank" rel="noopener noreferrer">
+            <img src="https://0fa3a041-b207-475c-ac4c-2d91227b5f02-00-103ufm9xsyeum.kirk.replit.dev/static/images/90e6a806-be4e-4042-957c-2cef9870f20a_slice_6.png" 
+                 alt="" 
+                 title=""
+                 loading="lazy"
+                 style="width: 100%; height: auto; display: block; border: 0;">
+        </a>
+
+    </div>
+</body>
+</html>
