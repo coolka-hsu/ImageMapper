@@ -5,3 +5,5 @@ lxml
 requests
 Pillow
 python-dotenv
+
+cloudinary
