@@ -9,6 +9,11 @@ from utils.map_parser import parse_html_map
 from utils.image_slicer import slice_image
 from utils.uploader import upload_to_cloudinary
 import shutil
+import os
+from flask import Flask
+
+app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")  # 改成環境變數
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
