@@ -12,6 +12,30 @@ import shutil
 import os
 from flask import Flask
 import os, secrets
+from flask import send_file, jsonify
+from pathlib import Path
+from werkzeug.utils import secure_filename
+
+@app.get("/download/<path:filename>")
+def download_zip(filename):
+    try:
+        safe = secure_filename(filename)  # 防路徑跳脫
+        # 這裡換成你實際放 zip 的目錄（別用相對於容器會消失的路徑）
+        zip_path = Path("exports") / safe   # e.g. /data/exports 若你有掛 Volume
+        if not zip_path.exists():
+            return jsonify({"ok": False, "error": "file not found"}), 404
+
+        return send_file(
+            zip_path,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=zip_path.name,
+            max_age=0,
+        )
+    except Exception as e:
+        # 不用 flash，直接回 JSON
+        return jsonify({"ok": False, "error": str(e)}), 500
+
 app.secret_key = os.getenv("SECRET_KEY") or secrets.token_hex(32)
 
 app = Flask(__name__)
