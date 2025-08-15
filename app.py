@@ -44,6 +44,46 @@ def debug_cloudinary():
         "result_url": url
     })
 
+# app.py（初始化區段）
+import os, logging, traceback
+from flask import Flask, jsonify
+app = Flask(__name__, static_folder="static", static_url_path="/static")
+
+# 讓 Gunicorn/Flask 把完整錯誤印到日誌
+logging.basicConfig(level=logging.INFO)
+app.logger.setLevel(logging.INFO)
+
+# 檢視 Cloudinary 狀態（不讓它影響啟動）
+try:
+    from utils.uploader import get_cloudinary_status
+    app.logger.warning({"cloudinary_status": get_cloudinary_status()})
+except Exception as e:
+    app.logger.error(f"uploader import/status failed: {e}\n{traceback.format_exc()}")
+
+# 健康檢查
+@app.get("/healthz")
+def healthz():
+    return {"ok": True}
+
+# Cloudinary 自測
+@app.get("/debug/cloudinary")
+def debug_cloudinary():
+    try:
+        from PIL import Image
+        from utils.uploader import upload_image
+        tmp_path = "/tmp/diag.png"
+        Image.new("RGB", (16, 16), (10, 200, 50)).save(tmp_path, "PNG")
+        url = upload_image(tmp_path, public_id_prefix="diag")
+        return {"ok": True, "result_url": url}
+    except Exception as e:
+        app.logger.error(f"/debug/cloudinary failed: {e}\n{traceback.format_exc()}")
+        return jsonify({"ok": False, "error": str(e)}), 500
+
+# 全域 500 攔截器（把實際錯誤寫到 logs）
+@app.errorhandler(500)
+def handle_500(err):
+    app.logger.error(f"500: {err}\n{traceback.format_exc()}")
+    return jsonify({"ok": False, "error": "Internal Server Error"}), 500
 
 # Configuration
 UPLOAD_FOLDER = 'uploads'
