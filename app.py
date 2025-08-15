@@ -11,6 +11,8 @@ from utils.uploader import upload_to_cloudinary
 import shutil
 import os
 from flask import Flask
+import os, secrets
+app.secret_key = os.getenv("SECRET_KEY") or secrets.token_hex(32)
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")  # 改成環境變數
